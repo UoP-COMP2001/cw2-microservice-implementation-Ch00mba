@@ -1,0 +1,19 @@
+openapi: 3.0.0
+info:
+title: "ProfileService API"
+description: "Microservice for managing user profiles, preferred activities, and user metrics."
+version: "1.0.0"
+
+servers:
+  - url: "/api"
+
+paths:
+  /profiles:
+    get:
+      operationId: "profiles.read_all"
+      tags:
+      - "Profiles"
+      summary: "Read all Profiles"
+      responses:
+        "200":
+          description: "Successfully read profiles"

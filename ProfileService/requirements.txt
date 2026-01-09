@@ -1,0 +1,5 @@
+flask
+connexion[swagger-ui]
+sqlalchemy
+pyodbc
+python-dotenv
