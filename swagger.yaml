@@ -1,0 +1,106 @@
+openapi: 3.0.0
+info:
+  title: RCW2 Microserive
+  version: "1.0.0"
+  description: API For managing subscriptions
+
+servers:
+  - url: "/api"
+
+components:
+  schemas:
+    Subscription:
+      type: object
+      properties:
+        SubscriptionID:
+          type: integer
+          format: int32
+        UserID:
+          type: integer
+          format: int32
+        TierID:
+          type: integer
+          format: int32
+        SubscriptionStart:
+          type: string
+          format: date
+        SubscriptionEnd:
+          type: string
+          format: date
+          nullable: true
+      required:
+        - UserID
+        - TierID
+  parameters:
+    SubscriptionID: 
+      name: "SubscriptionID"
+      description: "id of the subscription to get"
+      in: path
+      required: true
+      schema:
+        type: integer
+        format: int32
+
+paths:
+  /subscription:
+    get:
+      operationId: "subscription.read_all"
+      tags:
+        - "Subscriptions"
+      summary: get all subscriptions
+      responses:
+        "200":
+          description: "successfully read all subscriptions"
+    post:
+      operationId: "subscription.create"
+      tags:
+        - "Subscriptions"
+      summary: "Create a subscription"
+      requestBody:
+        description: "subscription to create"
+        required: true
+        content:
+          application/json:
+            schema:
+              x-body-name: "subscription"
+              $ref: "#/components/schemas/Subscription"
+      responses:
+        "201":
+          description: "Successfully created subscription"
+  /subscription/{SubscriptionID}:
+    get:
+      operationId: "subscription.read_one"
+      tags:
+        - "Subscriptions"
+      summary: "read one subscription"
+      parameters:
+        - $ref: "#components/parameters/SubscriptionID"
+      responses:
+        "200":
+          description: "successfully read subscription"
+    put:
+      operationId: "subscription.update"
+      tags:
+        - "Subscriptions"
+      summary: "update a sucbscription"
+      parameters: 
+        - $ref: "#/components/parameters/SubscriptionID"
+      responses: 
+        "200":
+          description: "successfully updated subscription"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              x-body-name: "subscription"
+              $ref: "#/components/schemas/Subscription"
+    delete:
+      operationId: "subscription.delete"
+      tags:
+        - "Subscriptions"
+      summary: "delete a subscription"
+      parameters:
+        - $ref: "#/components/parameters/SubscriptionID"
+      responses:
+        "204":
+          description: "successfully deleted subscription"
